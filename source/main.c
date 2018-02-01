@@ -61,9 +61,10 @@ int sum(int size_of_list, ...){
 
 int main(void) {
 
-	int x; //declaramos x
-	x = sum(4,1,2,3,4); //X Vale 10
-	printf("%s",x);
+	int x;
+	x = sum(10,1,1,1,1,1,1,1,1,2,1);//X Vale 11
+	//x = sum(4,1,2,3,4); //X Vale 10
+	printf("%d",x);
 
 
 	/* Init board hardware. */
