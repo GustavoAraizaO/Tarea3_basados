@@ -39,6 +39,7 @@
 #include "clock_config.h"
 #include "MK64F12.h"
 #include "fsl_debug_console.h"
+#include <stdarg.h>
 /* TODO: insert other include files here. */
 
 /* TODO: insert other definitions and declarations here. */
@@ -48,20 +49,24 @@
  */
 
 
-int sum(int size_of_list, ...){
-	unsigned char *p = (unsigned char *)&size_of_list;  // Apuntamos a 'size_of_list'
-	p += sizeof(size_of_list);  // Ahora apuntamos al primer byte del siguiente parámetro
+uint32_t sum(uint8_t size_of_list, ...){
+	va_list ap;
+	uint8_t i, num;
+	uint8_t count = 0;
 
-	char **pp = (char **)p;  // Esa dirección de memoria en 'p' realmente es para un valor de tipo 'char *'
-
-	while( *pp ){
-		printf("%c",*pp);
+	va_start(ap, size_of_list);
+	for (i =0; i<size_of_list; i++)
+	{
+		num=va_arg(ap, int);
+		count = count + num;
 	}
+	va_end(ap);
+	return count;
 }
 
 int main(void) {
 
-	int x;
+	uint8_t x;
 	x = sum(10,1,1,1,1,1,1,1,1,2,1);//X Vale 11
 	//x = sum(4,1,2,3,4); //X Vale 10
 	printf("%d",x);
