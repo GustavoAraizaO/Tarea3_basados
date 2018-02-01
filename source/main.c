@@ -27,7 +27,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
- 
+
 /**
  * @file    Tarea3.c
  * @brief   Application entry point.
@@ -46,21 +46,39 @@
 /*
  * @brief   Application entry point.
  */
+
+
+int sum(int size_of_list, ...){
+	unsigned char *p = (unsigned char *)&size_of_list;  // Apuntamos a 'size_of_list'
+	p += sizeof(size_of_list);  // Ahora apuntamos al primer byte del siguiente parámetro
+
+	char **pp = (char **)p;  // Esa dirección de memoria en 'p' realmente es para un valor de tipo 'char *'
+
+	while( *pp ){
+		printf("%c",*pp);
+	}
+}
+
 int main(void) {
 
-  	/* Init board hardware. */
-    BOARD_InitBootPins();
-    BOARD_InitBootClocks();
-    BOARD_InitBootPeripherals();
-  	/* Init FSL debug console. */
-    BOARD_InitDebugConsole();
+	int x; //declaramos x
+	x = sum(4,1,2,3,4); //X Vale 10
+	printf("%s",x);
 
 
-    /* Force the counter to be placed into memory. */
-    volatile static int i = 0 ;
-    /* Enter an infinite loop, just incrementing a counter. */
-    while(1) {
-        i++ ;
-    }
-    return 0 ;
+	/* Init board hardware. */
+	BOARD_InitBootPins();
+	BOARD_InitBootClocks();
+	BOARD_InitBootPeripherals();
+	/* Init FSL debug console. */
+	BOARD_InitDebugConsole();
+
+
+	/* Force the counter to be placed into memory. */
+	volatile static int i = 0 ;
+	/* Enter an infinite loop, just incrementing a counter. */
+	while(1) {
+		i++ ;
+	}
+	return 0 ;
 }
